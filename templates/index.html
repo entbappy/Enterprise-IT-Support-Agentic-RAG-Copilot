@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="brand-badge">FDE Project</div>
+        <h1>IT Support<br/>Agentic RAG</h1>
+        <p class="muted">Private company knowledge first. External web only when evidence is weak.</p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>LangGraph Workflow</h3>
+        <div class="flow-step">1. Route question</div>
+        <div class="flow-step">2. Retrieve private KB</div>
+        <div class="flow-step">3. Grade evidence</div>
+        <div class="flow-step">4. Web fallback if weak</div>
+        <div class="flow-step">5. Rewrite & retry</div>
+        <div class="flow-step">6. Grounded answer</div>
+      </div>
+
+      <button id="openUpload" class="secondary-btn">+ Add Company Document</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="status-dot"></span>
+          <span>Enterprise Knowledge Copilot</span>
+        </div>
+        <span class="pill">Agentic RAG</span>
+      </header>
+
+      <section id="chat" class="chat-area">
+        <div class="message assistant">
+          <div class="avatar">AI</div>
+          <div class="bubble">
+            <strong>How can I help with IT support?</strong>
+            <p>Try: “How do I connect to the company VPN?” or ask a question that may require current external vendor information.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="composer-wrap">
+        <div class="examples">
+          <button class="example">How do I connect to the company VPN?</button>
+          <button class="example">What is our password reset policy?</button>
+          <button class="example">What is the latest Microsoft Teams outage guidance?</button>
+        </div>
+        <form id="chatForm" class="composer">
+          <textarea id="question" rows="2" placeholder="Ask an IT support question..." required></textarea>
+          <button type="submit" class="send-btn">Ask Agent</button>
+        </form>
+      </section>
+    </main>
+
+    <aside class="trace-panel">
+      <h2>Agent Trace</h2>
+      <p class="muted">Watch LangGraph decisions while the request runs.</p>
+      <div id="trace" class="trace-list"><div class="empty">No request yet.</div></div>
+      <div class="source-box">
+        <span>Final Source</span>
+        <strong id="sourceUsed">—</strong>
+      </div>
+    </aside>
+  </div>
+
+  <div id="uploadModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head"><h2>Ingest Company Document</h2><button id="closeUpload">×</button></div>
+      <p class="muted">Upload PDF, TXT, Markdown, or DOCX. The document is chunked, embedded, and indexed into Pinecone.</p>
+      <input id="adminKey" type="password" placeholder="Admin API key" />
+      <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
+      <button id="uploadBtn" class="send-btn full">Index Document</button>
+      <div id="uploadStatus" class="upload-status"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
